@@ -1,0 +1,77 @@
+﻿<Window x:Class="qa_eval_finale_memento.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:ViewModels="clr-namespace:qa_eval_finale_memento.ViewModels"
+        xmlns:Controls="clr-namespace:qa_eval_finale_memento.behaviors"
+        mc:Ignorable="d"
+        Title="Memento Design Pattern"
+        Height="450"
+        Width="1063" 
+        ResizeMode="CanMinimize"
+        Name="mainWindow">
+    <Window.DataContext>
+        <ViewModels:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Type bellow" FontSize="22" Margin="10" HorizontalAlignment="left" FontWeight="SemiBold" Foreground="#FF1407AB"/>
+        <TextBox 
+            Grid.Row="1"
+            TextWrapping="Wrap" 
+            Text="{Binding Path=State, UpdateSourceTrigger=PropertyChanged}"
+            VerticalScrollBarVisibility="Visible" 
+            UndoLimit="0"
+            FontSize="18" 
+            FontWeight="Bold"
+            FontFamily="Arial Black"
+            x:Name="textBox"
+            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            >
+            <TextBox.InputBindings>
+                <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=undoCommand}"/>
+                <KeyBinding Gesture="Ctrl+Y" Command="{Binding Path=redoCommand}"/>
+                <KeyBinding Gesture="Backspace" Command="{Binding Path=eraseCommand}" CommandParameter="{Binding ElementName=textBox}"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"  Text="Undos:" FontSize="22" Margin="10" HorizontalAlignment="Left" FontWeight="SemiBold" Foreground="#FFE83D3D"/>
+            <TextBlock Grid.Column="1" Text="Redos:" FontSize="22" Margin="10"  FontWeight="SemiBold" Foreground="#FF54D61B"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0">
+                <ScrollViewer>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=UndosHistory}" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </ScrollViewer>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1">
+                <ScrollViewer>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=RedosHistory}" FontSize="16" />
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Undo" Grid.Column="0" Command="{Binding Path=undoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FFE83D3D"/>
+            <Button Content="Redo" Grid.Column="1" Command="{Binding Path=redoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FF54D61B"/>
+        </Grid>
+    </Grid>
+</Window>
