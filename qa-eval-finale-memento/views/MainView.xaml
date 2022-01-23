@@ -45,6 +45,7 @@
         <TextBox 
             Grid.Row="2"
             TextWrapping="Wrap" 
+            AcceptsReturn="True"
             Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"
             VerticalScrollBarVisibility="Visible" 
             UndoLimit="0"
@@ -57,6 +58,7 @@
                 <KeyBinding Gesture="Ctrl+Y" Command="{Binding Path=redoCommand}"/>
                 <KeyBinding Gesture="Ctrl+V" Command="{Binding Path=pasteCommand}" CommandParameter="{Binding ElementName=textBox}"/>
                 <KeyBinding Gesture="Backspace" Command="{Binding Path=eraseCommand}" CommandParameter="{Binding ElementName=textBox}"/>
+                <KeyBinding Key="Enter" Command="{Binding Path=undoCommand}"/>
             </TextBox.InputBindings>
         </TextBox>
         

@@ -3,11 +3,14 @@ using qa_eval_finale_memento.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace qa_eval_finale_memento.caretakers
 {
-    public class Caretaker
+    public class Caretaker : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private readonly IOriginator originator;
         private readonly Stack<IMemento> undos = new();
         private readonly Stack<IMemento> redos = new();
@@ -31,6 +34,8 @@ namespace qa_eval_finale_memento.caretakers
             }
             redos.Clear();
             undos.Push(originator.SaveState());
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(undos)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(redos)));
         }
 
         public bool Undo()
@@ -41,10 +46,12 @@ namespace qa_eval_finale_memento.caretakers
             }
 
             IMemento memento = undos.Pop();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(undos)));
 
             try
             {
                 redos.Push(memento);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(redos)));
                 originator.RestoreState(memento);
             }
             catch (Exception)
@@ -64,6 +71,8 @@ namespace qa_eval_finale_memento.caretakers
 
             IMemento memento = redos.Pop();
             undos.Push(memento);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(undos)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(redos)));
 
             try
             {
