@@ -31,18 +31,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Type bellow" FontSize="22" Margin="10" HorizontalAlignment="left" FontWeight="SemiBold" Foreground="#FF1407AB"/>
+        <TextBlock Grid.Row="0" Text="Text Editor" FontSize="22" Margin="10" HorizontalAlignment="left" FontWeight="SemiBold" Foreground="#FF1407AB" FontFamily="Arial Black"/>
         <TextBox 
             Grid.Row="1"
             TextWrapping="Wrap" 
             Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"
             VerticalScrollBarVisibility="Visible" 
             UndoLimit="0"
-            FontSize="18" 
-            FontWeight="Bold"
+            FontSize="17" 
             FontFamily="Arial Black"
             x:Name="textBox"
-            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold">
             <TextBox.InputBindings>
                 <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=undoCommand}"/>
                 <KeyBinding Gesture="Ctrl+Y" Command="{Binding Path=redoCommand}"/>
