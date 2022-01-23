@@ -18,13 +18,14 @@ namespace qa_eval_finale_memento
             {
                 var t = typeof(SystemParameters);
                 var field = t.GetField("_menuDropAlignment", BindingFlags.NonPublic | BindingFlags.Static);
-                field.SetValue(null, false);
+                field?.SetValue(null, false);
             }
 
-            //IServiceProvider serviceProvider = CreateServiceProvider();
+            IServiceProvider serviceProvider = CreateServiceProvider();
 
-            MainView window = new MainView();
-            window.Show();
+            MainView mainView = new MainView();
+            mainView.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
+            mainView.Show();
 
             base.OnStartup(e);
         }
@@ -34,9 +35,7 @@ namespace qa_eval_finale_memento
             IServiceCollection services = new ServiceCollection();
 
             services.AddSingleton<IOriginator, MainViewModel>();
-
             services.AddScoped<MainViewModel>();
-
 
             return services.BuildServiceProvider();
         }
