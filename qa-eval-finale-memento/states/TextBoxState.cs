@@ -13,7 +13,7 @@
 
         public override string ToString()
         {
-            return $"\"{Text}\" - {CaretPosition}";
+            return $"Text: \"{Text}\" ; Caret: {CaretPosition}";
         }
     }
 }
