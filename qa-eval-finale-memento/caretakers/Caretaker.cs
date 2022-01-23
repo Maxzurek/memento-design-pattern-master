@@ -2,6 +2,7 @@
 using qa_eval_finale_memento.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace qa_eval_finale_memento.caretakers
 {
@@ -76,30 +77,28 @@ namespace qa_eval_finale_memento.caretakers
             return true;
         }
 
-        public string GetUndosHistory()
+        public ObservableCollection<string> GetUndosHistory()
         {
-            string history = "-> ";
+            ObservableCollection<string> undosHistory = new();
 
             foreach (var memento in undos)
             {
-                history += memento.GetName();
-                history += '\n';
+                undosHistory.Add(memento.GetName());
             }
 
-            return history;
+            return undosHistory;
         }
 
-        public string GetRedosHistory()
+        public ObservableCollection<string> GetRedosHistory()
         {
-            string history = "-> ";
+            ObservableCollection<string> redosHistory = new();
 
             foreach (var memento in redos)
             {
-                history += memento.GetName();
-                history += '\n';
+                redosHistory.Add(memento.GetName());
             }
 
-            return history;
+            return redosHistory;
         }
     }
 }

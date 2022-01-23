@@ -4,6 +4,7 @@ using qa_eval_finale_memento.mementos;
 using qa_eval_finale_memento.states;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -65,8 +66,8 @@ namespace qa_eval_finale_memento.ViewModels
             }
         }
 
-        private string undosHistory = "";
-        public string UndosHistory
+        private ObservableCollection<string> undosHistory;
+        public ObservableCollection<string> UndosHistory
         {
             get
             {
@@ -79,8 +80,8 @@ namespace qa_eval_finale_memento.ViewModels
             }
         }
 
-        private string redosHistory = "";
-        public string RedosHistory
+        private ObservableCollection<string> redosHistory;
+        public ObservableCollection<string> RedosHistory
         {
             get
             {

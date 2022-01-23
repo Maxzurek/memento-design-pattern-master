@@ -11,6 +11,15 @@
         Width="999" 
         ResizeMode="CanMinimize"
         Name="mainWindow">
+    <Window.Resources>
+        <Style TargetType="ListViewItem" x:Key="ListViewItemStyle">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <ViewModels:MainViewModel/>
     </Window.DataContext>
@@ -56,12 +65,12 @@
             </Grid.ColumnDefinitions>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0">
                 <ScrollViewer>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=UndosHistory}" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    <ListView ItemsSource="{Binding Path=UndosHistory}" FontSize="14" AlternationCount="2147483647" ItemContainerStyle="{StaticResource ListViewItemStyle}"/>
                 </ScrollViewer>
             </Border>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1">
                 <ScrollViewer>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=RedosHistory}" FontSize="16" />
+                    <ListView ItemsSource="{Binding Path=RedosHistory}" FontSize="14" AlternationCount="2147483647" ItemContainerStyle="{StaticResource ListViewItemStyle}"/>
                 </ScrollViewer>
             </Border>
         </Grid>
