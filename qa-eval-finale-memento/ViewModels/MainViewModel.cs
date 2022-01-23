@@ -16,6 +16,7 @@ namespace qa_eval_finale_memento.ViewModels
         public ICommand undoCommand { get; }
         public ICommand redoCommand { get; }
         public ICommand eraseCommand { get; }
+        public ICommand pasteCommand { get; }
         private readonly Caretaker caretaker;
 
         /**********************************************************************************************************
@@ -27,6 +28,7 @@ namespace qa_eval_finale_memento.ViewModels
             undoCommand = new UndoCommand(caretaker);
             redoCommand = new RedoCommand(caretaker);
             eraseCommand = new EraseCommand(caretaker);
+            pasteCommand = new PasteCommand(caretaker);
             UndosHistory = caretaker.GetUndosHistory();
         }
 
@@ -96,9 +98,7 @@ namespace qa_eval_finale_memento.ViewModels
         ***********************************************************************************************************/
         public IMemento SaveState()
         {
-            int stateLength = Text.Length;
-            string trimmedState = Text.TrimEnd();
-            IState state = new TextBoxState(trimmedState, (CaretPosition < Text.Length ? CaretPosition + 1 : CaretPosition));
+            IState state = new TextBoxState(Text.TrimEnd(), CaretPosition);
 
             return new ConcreteMemento(state);
         }
@@ -128,7 +128,7 @@ namespace qa_eval_finale_memento.ViewModels
         {
             if (propertyName == nameof(Text))
             {
-                handleStateChanged();
+                handleTextChanged();
                 UndosHistory = caretaker.GetUndosHistory();
                 RedosHistory = caretaker.GetRedosHistory();
             }
@@ -136,7 +136,7 @@ namespace qa_eval_finale_memento.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void handleStateChanged()
+        private void handleTextChanged()
         {
             if (StateRestored)
             {
@@ -150,11 +150,7 @@ namespace qa_eval_finale_memento.ViewModels
                 {
                     return;
                 }
-                if(!baseInputs.Contains(Text[Text.Length - 1].ToString().ToLower()))
-                {
-                    caretaker.Backup();
-                }
-                else if(Text.Length > 1)
+                else if(Text.Length > 1 && CaretPosition != Text.Length)
                 {
                     if(Text[Text.Length - 1] == ' ' && Text[Text.Length - 2] != ' ')
                     {

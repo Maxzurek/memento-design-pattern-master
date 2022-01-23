@@ -19,6 +19,16 @@ namespace qa_eval_finale_memento.caretakers
 
         public void Backup()
         {
+            if(undos.Count == 0)
+            {
+                IMemento? memento;
+
+                if (redos.TryPeek(out memento))
+                {
+                    undos.Push(memento);
+                }
+            }
+            redos.Clear();
             undos.Push(originator.SaveState());
         }
 
@@ -33,16 +43,8 @@ namespace qa_eval_finale_memento.caretakers
 
             try
             {
+                redos.Push(memento);
                 originator.RestoreState(memento);
-
-                if(undos.Count == 0)
-                {
-                    Backup();
-                }
-                else
-                {
-                    redos.Push(originator.SaveState());
-                }
             }
             catch (Exception)
             {

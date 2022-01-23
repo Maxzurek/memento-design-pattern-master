@@ -7,8 +7,8 @@
         xmlns:Controls="clr-namespace:qa_eval_finale_memento.behaviors"
         mc:Ignorable="d"
         Title="Memento Design Pattern"
-        Height="450"
-        Width="1063" 
+        Height="576"
+        Width="999" 
         ResizeMode="CanMinimize"
         Name="mainWindow">
     <Window.DataContext>
@@ -33,11 +33,11 @@
             FontWeight="Bold"
             FontFamily="Arial Black"
             x:Name="textBox"
-            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            >
+            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=undoCommand}"/>
                 <KeyBinding Gesture="Ctrl+Y" Command="{Binding Path=redoCommand}"/>
+                <KeyBinding Gesture="Ctrl+V" Command="{Binding Path=pasteCommand}" CommandParameter="{Binding ElementName=textBox}"/>
                 <KeyBinding Gesture="Backspace" Command="{Binding Path=eraseCommand}" CommandParameter="{Binding ElementName=textBox}"/>
             </TextBox.InputBindings>
         </TextBox>
