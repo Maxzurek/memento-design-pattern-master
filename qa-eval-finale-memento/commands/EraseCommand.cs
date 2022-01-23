@@ -1,10 +1,4 @@
 ﻿using qa_eval_finale_memento.caretakers;
-using qa_eval_finale_memento.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace qa_eval_finale_memento.commands
@@ -22,11 +16,11 @@ namespace qa_eval_finale_memento.commands
         {
             if (parameter is TextBox textBox)
             {
-                if(textBox.Text.Length == 0)
+                if (textBox.Text.Length == 0)
                 {
                     return;
                 }
-                else if(textBox.SelectedText.Length > 1)
+                else if (textBox.SelectedText.Length > 1)
                 {
                     int caretIndex = textBox.CaretIndex;
                     string selectedText = textBox.SelectedText;
@@ -37,8 +31,8 @@ namespace qa_eval_finale_memento.commands
                 else
                 {
                     int caretIndex = textBox.CaretIndex;
-                    textBox.Text = textBox.Text.Remove(caretIndex-1, 1);
-                    textBox.CaretIndex = caretIndex == 0 ? 0 : caretIndex -1;
+                    textBox.Text = textBox.Text.Remove(caretIndex - 1, 1);
+                    textBox.CaretIndex = caretIndex == 0 ? 0 : caretIndex - 1;
                     caretaker.Backup();
                 }
             }

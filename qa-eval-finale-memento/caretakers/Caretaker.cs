@@ -19,7 +19,7 @@ namespace qa_eval_finale_memento.caretakers
 
         public void Backup()
         {
-            if(undos.Count == 0)
+            if (undos.Count == 0)
             {
                 IMemento? memento;
 

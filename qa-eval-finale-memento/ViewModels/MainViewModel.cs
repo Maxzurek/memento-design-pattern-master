@@ -105,7 +105,7 @@ namespace qa_eval_finale_memento.ViewModels
 
         public void RestoreState(IMemento memento)
         {
-            if(memento is not ConcreteMemento)
+            if (memento is not ConcreteMemento)
             {
                 throw new Exception("Unknown memento class " + memento.ToString());
             }
@@ -114,7 +114,7 @@ namespace qa_eval_finale_memento.ViewModels
 
             IState state = memento.GetState();
 
-            if(state is TextBoxState textBoxState)
+            if (state is TextBoxState textBoxState)
             {
                 Text = textBoxState.Text;
                 CaretPosition = textBoxState.CaretPosition;
@@ -146,13 +146,13 @@ namespace qa_eval_finale_memento.ViewModels
             {
                 List<string> baseInputs = new("a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,1,2,3,4,5,6,7,8,9,0".Split(","));
 
-                if(Text.Length == 0)
+                if (Text.Length == 0)
                 {
                     return;
                 }
-                else if(Text.Length > 1 && CaretPosition != Text.Length)
+                else if (Text.Length > 1 && CaretPosition != Text.Length)
                 {
-                    if(Text[Text.Length - 1] == ' ' && Text[Text.Length - 2] != ' ')
+                    if (Text[Text.Length - 1] == ' ' && Text[Text.Length - 2] != ' ')
                     {
                         caretaker.Backup();
                     }

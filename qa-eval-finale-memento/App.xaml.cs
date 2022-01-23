@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using qa_eval_finale_memento.caretakers;
 using qa_eval_finale_memento.ViewModels;
 using System;
 using System.Windows;
