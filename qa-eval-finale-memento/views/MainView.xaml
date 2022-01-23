@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:ViewModels="clr-namespace:qa_eval_finale_memento.ViewModels"
         xmlns:Controls="clr-namespace:qa_eval_finale_memento.behaviors"
         mc:Ignorable="d"
         Title="Memento Design Pattern"
@@ -30,7 +29,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" >
             <MenuItem Header="Edit" >
                 <MenuItem  Header="Undo (Ctrl+z)" Command="{Binding Path=undoCommand}"/>
                 <MenuItem  Header="Redo (Ctrl+y)" Command="{Binding Path=redoCommand}"/>
@@ -41,7 +40,7 @@
             </MenuItem>
         </Menu>
 
-        <TextBlock Grid.Row="1" Text="Text Editor" FontSize="22" Margin="10" HorizontalAlignment="left" FontWeight="SemiBold" Foreground="#FF1407AB" FontFamily="Arial Black"/>
+        <TextBlock Grid.Row="1" Text="Text Editor" FontSize="22" Margin="10" HorizontalAlignment="Center" FontWeight="SemiBold" Foreground="#FF1407AB" FontFamily="Arial Black"/>
        
         <TextBox 
             Grid.Row="2"

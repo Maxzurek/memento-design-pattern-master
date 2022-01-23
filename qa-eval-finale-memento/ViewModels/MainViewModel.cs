@@ -3,7 +3,6 @@ using qa_eval_finale_memento.commands;
 using qa_eval_finale_memento.mementos;
 using qa_eval_finale_memento.states;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
