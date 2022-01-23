@@ -1,4 +1,5 @@
-﻿using System;
+﻿using qa_eval_finale_memento.states;
+using System;
 
 namespace qa_eval_finale_memento.mementos
 {
@@ -6,18 +7,16 @@ namespace qa_eval_finale_memento.mementos
     {
         public string Name
         {
-            get { return $"{Date} : \"{State}\" - {CaretPosition}"; }
+            get { return $"{Date} : {State}"; }
         }
 
-        public string State { get; private set; } = "";
-        public int CaretPosition { get; private set; } = 0;
+        public IState State { get; private set; }
         public DateTime Date { get; private set; }
 
-        public ConcreteMemento(string state, int caretPosition)
+        public ConcreteMemento(IState state)
         {
             State = state;
             Date = DateTime.Now;
-            CaretPosition = caretPosition;
         }
 
         public string GetName()
@@ -25,7 +24,7 @@ namespace qa_eval_finale_memento.mementos
             return Name;
         }
 
-        public string GetState()
+        public IState GetState()
         {
             return State;
         }
@@ -33,11 +32,6 @@ namespace qa_eval_finale_memento.mementos
         public DateTime GetDate()
         {
             return Date;
-        }
-
-        public int GetCaretPosition()
-        {
-            return CaretPosition;
         }
     }
 }

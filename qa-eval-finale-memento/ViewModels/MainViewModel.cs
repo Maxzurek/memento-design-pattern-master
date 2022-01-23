@@ -1,6 +1,7 @@
 ﻿using qa_eval_finale_memento.caretakers;
 using qa_eval_finale_memento.commands;
 using qa_eval_finale_memento.mementos;
+using qa_eval_finale_memento.states;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,17 +35,17 @@ namespace qa_eval_finale_memento.ViewModels
         ***********************************************************************************************************/
         public bool StateRestored { get; private set; } = false;
 
-        private string state = "";
-        public string State
+        private string text = "";
+        public string Text
         {
             get
             {
-                return state;
+                return text;
             }
             set
             {
-                state = value;
-                OnPropertyChanged(nameof(State));
+                text = value;
+                OnPropertyChanged(nameof(Text));
             }
         }
 
@@ -95,10 +96,11 @@ namespace qa_eval_finale_memento.ViewModels
         ***********************************************************************************************************/
         public IMemento SaveState()
         {
-            int stateLength = State.Length;
-            string trimmedState = State.TrimEnd();
+            int stateLength = Text.Length;
+            string trimmedState = Text.TrimEnd();
+            IState state = new TextBoxState(trimmedState, (CaretPosition < Text.Length ? CaretPosition + 1 : CaretPosition));
 
-            return new ConcreteMemento(trimmedState, (CaretPosition < State.Length ? CaretPosition + 1 : CaretPosition));
+            return new ConcreteMemento(state);
         }
 
         public void RestoreState(IMemento memento)
@@ -109,8 +111,14 @@ namespace qa_eval_finale_memento.ViewModels
             }
 
             StateRestored = true;
-            State = memento.GetState();
-            CaretPosition = memento.GetCaretPosition();
+
+            IState state = memento.GetState();
+
+            if(state is TextBoxState textBoxState)
+            {
+                Text = textBoxState.Text;
+                CaretPosition = textBoxState.CaretPosition;
+            }
         }
 
         /**********************************************************************************************************
@@ -118,7 +126,7 @@ namespace qa_eval_finale_memento.ViewModels
         ***********************************************************************************************************/
         private void OnPropertyChanged(string propertyName)
         {
-            if (propertyName == nameof(State))
+            if (propertyName == nameof(Text))
             {
                 handleStateChanged();
                 UndosHistory = caretaker.GetUndosHistory();
@@ -138,17 +146,17 @@ namespace qa_eval_finale_memento.ViewModels
             {
                 List<string> baseInputs = new("a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,1,2,3,4,5,6,7,8,9,0".Split(","));
 
-                if(State.Length == 0)
+                if(Text.Length == 0)
                 {
                     return;
                 }
-                if(!baseInputs.Contains(State[State.Length - 1].ToString().ToLower()))
+                if(!baseInputs.Contains(Text[Text.Length - 1].ToString().ToLower()))
                 {
                     caretaker.Backup();
                 }
-                else if(State.Length > 1)
+                else if(Text.Length > 1)
                 {
-                    if(State[State.Length - 1] == ' ' && State[State.Length - 2] != ' ')
+                    if(Text[Text.Length - 1] == ' ' && Text[Text.Length - 2] != ' ')
                     {
                         caretaker.Backup();
                     }

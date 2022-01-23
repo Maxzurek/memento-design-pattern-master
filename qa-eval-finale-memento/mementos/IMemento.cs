@@ -1,4 +1,5 @@
-﻿using System;
+﻿using qa_eval_finale_memento.states;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,8 @@ namespace qa_eval_finale_memento.mementos
     {
         string GetName();
 
-        string GetState();
+        IState GetState();
 
         DateTime GetDate();
-
-        int GetCaretPosition();
     }
 }
