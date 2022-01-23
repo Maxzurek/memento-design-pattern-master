@@ -37,7 +37,7 @@ namespace qa_eval_finale_memento.commands
                 else
                 {
                     int caretIndex = textBox.CaretIndex;
-                    textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1, 1);
+                    textBox.Text = textBox.Text.Remove(caretIndex-1, 1);
                     textBox.CaretIndex = caretIndex == 0 ? 0 : caretIndex -1;
                     caretaker.Backup();
                 }
