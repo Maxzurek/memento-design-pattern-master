@@ -26,14 +26,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Text Editor" FontSize="22" Margin="10" HorizontalAlignment="left" FontWeight="SemiBold" Foreground="#FF1407AB" FontFamily="Arial Black"/>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Edit" >
+                <MenuItem  Header="Undo (Ctrl+z)" Command="{Binding Path=undoCommand}"/>
+                <MenuItem  Header="Redo (Ctrl+y)" Command="{Binding Path=redoCommand}"/>
+                <MenuItem  Header="Paste (Ctrl+v)" Command="{Binding Path=pasteCommand}"/>
+                <MenuItem  Header="Backspace (Back)" Command="{Binding Path=eraseCommand}"/>
+                <Separator />
+                <MenuItem  Header="Exit"/>
+            </MenuItem>
+        </Menu>
+
+        <TextBlock Grid.Row="1" Text="Text Editor" FontSize="22" Margin="10" HorizontalAlignment="left" FontWeight="SemiBold" Foreground="#FF1407AB" FontFamily="Arial Black"/>
+       
         <TextBox 
-            Grid.Row="1"
+            Grid.Row="2"
             TextWrapping="Wrap" 
             Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"
             VerticalScrollBarVisibility="Visible" 
@@ -49,7 +63,8 @@
                 <KeyBinding Gesture="Backspace" Command="{Binding Path=eraseCommand}" CommandParameter="{Binding ElementName=textBox}"/>
             </TextBox.InputBindings>
         </TextBox>
-        <Grid Grid.Row="2">
+        
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -57,7 +72,8 @@
             <TextBlock Grid.Column="0"  Text="Undos:" FontSize="22" Margin="10" HorizontalAlignment="Left" FontWeight="SemiBold" Foreground="#FFE83D3D"/>
             <TextBlock Grid.Column="1" Text="Redos:" FontSize="22" Margin="10"  FontWeight="SemiBold" Foreground="#FF54D61B"/>
         </Grid>
-        <Grid Grid.Row="3">
+        
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -73,7 +89,8 @@
                 </ScrollViewer>
             </Border>
         </Grid>
-        <Grid Grid.Row="4">
+        
+        <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -81,5 +98,6 @@
             <Button Content="Undo" Grid.Column="0" Command="{Binding Path=undoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FFE83D3D"/>
             <Button Content="Redo" Grid.Column="1" Command="{Binding Path=redoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FF54D61B"/>
         </Grid>
+        
     </Grid>
 </Window>
