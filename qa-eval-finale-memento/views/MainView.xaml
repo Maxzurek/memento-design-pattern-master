@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:viewModels="clr-namespace:qa_eval_finale_memento.ViewModels"
     xmlns:Controls="clr-namespace:qa_eval_finale_memento.behaviors"
     mc:Ignorable="d"
     Title="Memento Design Pattern"
@@ -11,6 +12,9 @@
     Width="999" 
     ResizeMode="CanMinimize"
     Name="mainWindow">
+    <Window.DataContext>
+        <viewModels:MainViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <Style TargetType="ListViewItem" x:Key="ListViewItemStyle">
             <Style.Triggers>

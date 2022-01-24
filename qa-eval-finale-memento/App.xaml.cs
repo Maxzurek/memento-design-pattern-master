@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using qa_eval_finale_memento.ViewModels;
-using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 
 namespace qa_eval_finale_memento
@@ -21,23 +18,10 @@ namespace qa_eval_finale_memento
                 field?.SetValue(null, false);
             }
 
-            IServiceProvider serviceProvider = CreateServiceProvider();
-
-            MainView mainView = new MainView();
-            mainView.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
+            MainView mainView = new();
             mainView.Show();
 
             base.OnStartup(e);
-        }
-
-        private IServiceProvider CreateServiceProvider()
-        {
-            IServiceCollection services = new ServiceCollection();
-
-            services.AddSingleton<IOriginator, MainViewModel>();
-            services.AddScoped<MainViewModel>();
-
-            return services.BuildServiceProvider();
         }
     }
 }
