@@ -9,11 +9,7 @@ namespace qa_eval_finale_memento.caretakers
 {
     public class Caretaker : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private readonly IOriginator originator;
-        private readonly Stack<IMemento> undos = new();
-        private readonly Stack<IMemento> redos = new();
+        #region Constructor
 
         public Caretaker(IOriginator originator)
         {
@@ -21,6 +17,27 @@ namespace qa_eval_finale_memento.caretakers
             Backup();
         }
 
+        #endregion
+
+        #region Properties
+
+        private readonly IOriginator originator;
+        private readonly Stack<IMemento> undos = new();
+        private readonly Stack<IMemento> redos = new();
+
+        #endregion
+
+        #region Interface Implementation
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Save the originator state
+        /// </summary>
         public void Backup()
         {
             if (undos.Count == 0)
@@ -38,6 +55,10 @@ namespace qa_eval_finale_memento.caretakers
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(redos)));
         }
 
+        /// <summary>
+        /// Restore the last saved state from the undos stack
+        /// </summary>
+        /// <returns></returns>
         public bool Undo()
         {
             if (undos.Count == 0)
@@ -62,6 +83,10 @@ namespace qa_eval_finale_memento.caretakers
             return true;
         }
 
+        /// <summary>
+        /// Restore the last saved state from the redos stack
+        /// </summary>
+        /// <returns></returns>
         public bool Redo()
         {
             if (redos.Count == 0)
@@ -86,6 +111,10 @@ namespace qa_eval_finale_memento.caretakers
             return true;
         }
 
+        /// <summary>
+        /// Return an ObservableCollection of all the memento stored inside the undos stack
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<string> GetUndosHistory()
         {
             ObservableCollection<string> undosHistory = new();
@@ -98,6 +127,10 @@ namespace qa_eval_finale_memento.caretakers
             return undosHistory;
         }
 
+        /// <summary>
+        /// Return an ObservableCollection of all the memento stored inside the redos stack
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<string> GetRedosHistory()
         {
             ObservableCollection<string> redosHistory = new();
@@ -109,5 +142,7 @@ namespace qa_eval_finale_memento.caretakers
 
             return redosHistory;
         }
+
+        #endregion
     }
 }

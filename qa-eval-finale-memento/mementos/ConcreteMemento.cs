@@ -5,6 +5,17 @@ namespace qa_eval_finale_memento.mementos
 {
     internal class ConcreteMemento : IMemento
     {
+        #region Constructor
+
+        public ConcreteMemento(IState state)
+        {
+            State = state;
+            Date = DateTime.Now;
+        }
+
+        #endregion
+
+        #region Properties
         public string Name
         {
             get { return $"{Date} : {State}"; }
@@ -13,12 +24,9 @@ namespace qa_eval_finale_memento.mementos
         public IState State { get; private set; }
         public DateTime Date { get; private set; }
 
-        public ConcreteMemento(IState state)
-        {
-            State = state;
-            Date = DateTime.Now;
-        }
+        #endregion
 
+        #region Interface Implementation
         public string GetName()
         {
             return Name;
@@ -33,5 +41,7 @@ namespace qa_eval_finale_memento.mementos
         {
             return Date;
         }
+
+        #endregion
     }
 }

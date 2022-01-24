@@ -12,9 +12,8 @@ namespace qa_eval_finale_memento.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged, IOriginator
     {
-        /**********************************************************************************************************
-        * Constructor
-        ***********************************************************************************************************/
+        #region Constructor
+
         public MainViewModel()
         {
             caretaker = new Caretaker(this);
@@ -24,14 +23,15 @@ namespace qa_eval_finale_memento.ViewModels
             eraseCommand = new EraseCommand(caretaker);
             pasteCommand = new PasteCommand(caretaker);
 
-            caretaker.PropertyChanged += handleCaretakerPropertyChanged;
+            caretaker.PropertyChanged += HandleCaretakerPropertyChanged;
 
             UndosHistory = caretaker.GetUndosHistory();
         }
 
-        /**********************************************************************************************************
-        * Properties
-        ***********************************************************************************************************/
+        #endregion
+
+        #region Properties
+
         private readonly List<string> ALPHANUMERIC_CHARS = new List<string>("a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,1,2,3,4,5,6,7,8,9,0".Split(','));
 
         public ICommand undoCommand { get; }
@@ -98,9 +98,10 @@ namespace qa_eval_finale_memento.ViewModels
             }
         }
 
-        /**********************************************************************************************************
-        * Interface implementation
-        ***********************************************************************************************************/
+        #endregion
+
+        #region Interface Implementation
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public IMemento SaveState()
@@ -128,18 +129,28 @@ namespace qa_eval_finale_memento.ViewModels
             }
         }
 
-        /**********************************************************************************************************
-        * Public Methods
-        ***********************************************************************************************************/
-        public void handleViewEnterKeyDown()
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Backup this current state whenever the Enter key is pressed inside the Textbox control of the MainView
+        /// </summary>
+        public void HandleMainViewEnterKeyDown()
         {
             caretaker.Backup();
         }
 
-        /**********************************************************************************************************
-        * Private Methods
-        ***********************************************************************************************************/
-        private void handleCaretakerPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Get the undos or redos history whenever the undos or redos property of the Caretaker is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleCaretakerPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e != null)
             {
@@ -163,13 +174,13 @@ namespace qa_eval_finale_memento.ViewModels
         {
             if (propertyName == nameof(Text))
             {
-                handleTextChanged();
+                HandleTextBoxTextChanged();
             }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void handleTextChanged()
+        private void HandleTextBoxTextChanged()
         {
             if (StateRestored)
             {
@@ -182,6 +193,9 @@ namespace qa_eval_finale_memento.ViewModels
                     return;
                 }
                 else if (CaretPosition == Text.Length - 1 && !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower()))
+                    // Whenever the user enters a non alphanumeric character a the end of the textbox,
+                    // since this method is called before the CaretPosition is set,
+                    // we want to move the textbox's CaretPosition to the end of the of the textbox before doing a backup of the state
                 {
                     CaretPosition++;
                     caretaker.Backup();
@@ -189,11 +203,15 @@ namespace qa_eval_finale_memento.ViewModels
                 else if (Text.Length > 1 && CaretPosition != Text.Length)
                 {
                     if (Text[^1] == ' ' && Text[^2] != ' ')
+                    // Whenever last char type is a space and the char before is not a space, we have a word.
+                    // Backup the current state
                     {
                         caretaker.Backup();
                     }
                 }
             }
         }
+
+        #endregion
     }
 }

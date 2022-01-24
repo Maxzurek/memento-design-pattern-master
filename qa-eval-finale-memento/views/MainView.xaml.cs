@@ -18,7 +18,7 @@ namespace qa_eval_finale_memento
             if (e.Key == System.Windows.Input.Key.Enter)
             {
                 MainViewModel mainViewModel = (MainViewModel)DataContext;
-                mainViewModel.handleViewEnterKeyDown();
+                mainViewModel.HandleMainViewEnterKeyDown();
             }
         }
     }
