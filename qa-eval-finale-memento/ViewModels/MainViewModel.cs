@@ -142,7 +142,7 @@ namespace qa_eval_finale_memento.ViewModels
         ***********************************************************************************************************/
         private void handleCaretakerPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e != null)
+            if (e != null)
             {
                 string? propertyName = e.PropertyName;
 
@@ -182,7 +182,7 @@ namespace qa_eval_finale_memento.ViewModels
                 {
                     return;
                 }
-                else if(CaretPosition == Text.Length -1 && !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower()))
+                else if (CaretPosition == Text.Length - 1 && !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower()))
                 {
                     CaretPosition++;
                     caretaker.Backup();

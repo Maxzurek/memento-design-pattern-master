@@ -1,15 +1,16 @@
-﻿<Window x:Class="qa_eval_finale_memento.MainView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:Controls="clr-namespace:qa_eval_finale_memento.behaviors"
-        mc:Ignorable="d"
-        Title="Memento Design Pattern"
-        Height="576"
-        Width="999" 
-        ResizeMode="CanMinimize"
-        Name="mainWindow">
+﻿<Window 
+    x:Class="qa_eval_finale_memento.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:Controls="clr-namespace:qa_eval_finale_memento.behaviors"
+    mc:Ignorable="d"
+    Title="Memento Design Pattern"
+    Height="576"
+    Width="999" 
+    ResizeMode="CanMinimize"
+    Name="mainWindow">
     <Window.Resources>
         <Style TargetType="ListViewItem" x:Key="ListViewItemStyle">
             <Style.Triggers>
@@ -40,8 +41,16 @@
             </MenuItem>
         </Menu>
 
-        <TextBlock Grid.Row="1" Text="Text Editor" FontSize="22" Margin="10" HorizontalAlignment="Center" FontWeight="SemiBold" Foreground="#FF1407AB" FontFamily="Arial Black"/>
-       
+        <TextBlock 
+            Grid.Row="1" 
+            Text="Text Editor" 
+            FontSize="22" 
+            Margin="10" 
+            HorizontalAlignment="Center" 
+            FontWeight="SemiBold" 
+            Foreground="#FF1407AB"
+            FontFamily="Arial Black"/>
+
         <TextBox 
             Grid.Row="2"
             TextWrapping="Wrap" 
@@ -52,9 +61,9 @@
             FontSize="17" 
             FontFamily="Arial Black"
             x:Name="textBox"
-            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-            FontWeight="Bold"
-            KeyUp="textBox_KeyUp">
+            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            KeyUp="textBox_KeyUp" 
+            FontWeight="Normal">
             <TextBox.InputBindings>
                 <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=undoCommand}"/>
                 <KeyBinding Gesture="Ctrl+Y" Command="{Binding Path=redoCommand}"/>
@@ -62,16 +71,29 @@
                 <KeyBinding Gesture="Backspace" Command="{Binding Path=eraseCommand}" CommandParameter="{Binding ElementName=textBox}"/>
             </TextBox.InputBindings>
         </TextBox>
-        
+
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"  Text="Undos:" FontSize="22" Margin="10" HorizontalAlignment="Left" FontWeight="SemiBold" Foreground="#FFE83D3D"/>
-            <TextBlock Grid.Column="1" Text="Redos:" FontSize="22" Margin="10"  FontWeight="SemiBold" Foreground="#FF54D61B"/>
+            <TextBlock 
+                Grid.Column="0" 
+                Text="Undos:" 
+                FontSize="22" 
+                Margin="10"
+                HorizontalAlignment="Left"
+                FontWeight="SemiBold" 
+                Foreground="#FFE83D3D"/>
+            <TextBlock
+                Grid.Column="1"
+                Text="Redos:"
+                FontSize="22" 
+                Margin="10" 
+                FontWeight="SemiBold" 
+                Foreground="#FF54D61B"/>
         </Grid>
-        
+
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -79,25 +101,46 @@
             </Grid.ColumnDefinitions>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0">
                 <ScrollViewer>
-                    <ListView ItemsSource="{Binding Path=UndosHistory}" FontSize="14" AlternationCount="2147483647" ItemContainerStyle="{StaticResource ListViewItemStyle}"/>
+                    <ListView 
+                        ItemsSource="{Binding Path=UndosHistory}"
+                        FontSize="14"
+                        AlternationCount="2147483647" 
+                        ItemContainerStyle="{StaticResource ListViewItemStyle}"/>
                 </ScrollViewer>
             </Border>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1">
                 <ScrollViewer>
-                    <ListView ItemsSource="{Binding Path=RedosHistory}" FontSize="14" AlternationCount="2147483647" ItemContainerStyle="{StaticResource ListViewItemStyle}"/>
+                    <ListView
+                        ItemsSource="{Binding Path=RedosHistory}"
+                        FontSize="14" 
+                        AlternationCount="2147483647"
+                        ItemContainerStyle="{StaticResource ListViewItemStyle}"/>
                 </ScrollViewer>
             </Border>
         </Grid>
-        
+
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Undo" Grid.Column="0" Command="{Binding Path=undoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FFE83D3D"/>
-            <Button Content="Redo" Grid.Column="1" Command="{Binding Path=redoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FF54D61B"/>
+            <Button 
+                Content="Undo" 
+                Grid.Column="0"
+                Command="{Binding Path=undoCommand}" 
+                CommandParameter="{Binding ElementName=textBox}"
+                FontSize="16"
+                FontWeight="Bold"
+                Background="#FFE83D3D"/>
+            <Button
+                Content="Redo"
+                Grid.Column="1" 
+                Command="{Binding Path=redoCommand}"
+                CommandParameter="{Binding ElementName=textBox}"
+                FontSize="16"
+                FontWeight="Bold" 
+                Background="#FF54D61B"/>
         </Grid>
-        <TextBlock Text="{Binding Path=CaretPosition}" HorizontalAlignment="Left" Margin="23,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>
