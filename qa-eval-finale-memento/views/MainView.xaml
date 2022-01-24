@@ -52,13 +52,14 @@
             FontSize="17" 
             FontFamily="Arial Black"
             x:Name="textBox"
-            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold">
+            Controls:TextBoxCursorPositionBehavior.CaretIndex="{Binding Path=CaretPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            FontWeight="Bold"
+            KeyUp="textBox_KeyUp">
             <TextBox.InputBindings>
                 <KeyBinding Gesture="Ctrl+Z" Command="{Binding Path=undoCommand}"/>
                 <KeyBinding Gesture="Ctrl+Y" Command="{Binding Path=redoCommand}"/>
                 <KeyBinding Gesture="Ctrl+V" Command="{Binding Path=pasteCommand}" CommandParameter="{Binding ElementName=textBox}"/>
                 <KeyBinding Gesture="Backspace" Command="{Binding Path=eraseCommand}" CommandParameter="{Binding ElementName=textBox}"/>
-                <KeyBinding Key="Enter" Command="{Binding Path=undoCommand}"/>
             </TextBox.InputBindings>
         </TextBox>
         
@@ -96,6 +97,7 @@
             <Button Content="Undo" Grid.Column="0" Command="{Binding Path=undoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FFE83D3D"/>
             <Button Content="Redo" Grid.Column="1" Command="{Binding Path=redoCommand}" CommandParameter="{Binding ElementName=textBox}" FontSize="16" FontWeight="Bold" Background="#FF54D61B"/>
         </Grid>
-        
+        <TextBlock Text="{Binding Path=CaretPosition}" HorizontalAlignment="Left" Margin="23,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
     </Grid>
 </Window>

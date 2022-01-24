@@ -18,13 +18,15 @@ namespace qa_eval_finale_memento.ViewModels
         public MainViewModel()
         {
             caretaker = new Caretaker(this);
+
             undoCommand = new UndoCommand(caretaker);
             redoCommand = new RedoCommand(caretaker);
             eraseCommand = new EraseCommand(caretaker);
             pasteCommand = new PasteCommand(caretaker);
-            UndosHistory = caretaker.GetUndosHistory();
 
             caretaker.PropertyChanged += handleCaretakerPropertyChanged;
+
+            UndosHistory = caretaker.GetUndosHistory();
         }
 
         /**********************************************************************************************************
@@ -32,6 +34,7 @@ namespace qa_eval_finale_memento.ViewModels
         ***********************************************************************************************************/
         private readonly List<string> ALPHANUMERIC_CHARS = new List<string>("a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,1,2,3,4,5,6,7,8,9,0".Split(','));
 
+        public ICommand backupCommand { get; }
         public ICommand undoCommand { get; }
         public ICommand redoCommand { get; }
         public ICommand eraseCommand { get; }
@@ -124,6 +127,14 @@ namespace qa_eval_finale_memento.ViewModels
                 Text = textBoxState.Text;
                 CaretPosition = textBoxState.CaretPosition;
             }
+        }
+
+        /**********************************************************************************************************
+        * Public Methods
+        ***********************************************************************************************************/
+        public void handleViewEnterKeyDown()
+        {
+            caretaker.Backup();
         }
 
         /**********************************************************************************************************
