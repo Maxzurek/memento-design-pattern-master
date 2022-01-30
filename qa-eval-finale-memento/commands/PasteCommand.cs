@@ -21,11 +21,13 @@ namespace qa_eval_finale_memento.commands
 
                 if (text.Length > 0)
                 {
+                    int pasteCaretIndex = textBox.CaretIndex;
+                    textBox.CaretIndex = textBox.Text.Length - 1;
+
                     careTaker.Backup();
 
-                    int caretIndex = textBox.CaretIndex;
-                    textBox.Text = textBox.Text.Insert(caretIndex, text);
-                    textBox.CaretIndex = caretIndex + text.Length;
+                    textBox.Text = textBox.Text.Insert(pasteCaretIndex, text);
+                    textBox.CaretIndex = pasteCaretIndex + text.Length;
 
                     careTaker.Backup();
                 }
