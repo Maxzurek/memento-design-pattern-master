@@ -21,7 +21,7 @@ namespace qa_eval_finale_memento.mementos
             get { return $"{Date} : {State}"; }
         }
 
-        public IState State { get;  private set; }
+        public IState State { get; private set; }
         public DateTime Date { get; private set; }
 
         #endregion
