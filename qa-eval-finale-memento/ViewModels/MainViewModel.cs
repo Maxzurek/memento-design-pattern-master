@@ -197,8 +197,11 @@ namespace qa_eval_finale_memento.ViewModels
                     // since this method is called before the CaretPosition is set,
                     // we want to move the textbox's CaretPosition to the end of the of the textbox before doing a backup of the state
                 {
-                    CaretPosition++;
-                    caretaker.Backup();
+                    if(Text.Length > 1 && Text[^1] == ' ' && Text[^2] != ' ') // We don't want to backup spaces
+                    {
+                        CaretPosition++;
+                        caretaker.Backup();
+                    }
                 }
                 else if (Text.Length > 1 && CaretPosition != Text.Length)
                 {
