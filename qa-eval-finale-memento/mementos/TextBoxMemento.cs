@@ -3,11 +3,11 @@ using System;
 
 namespace qa_eval_finale_memento.mementos
 {
-    internal class ConcreteMemento : IMemento
+    internal class TextBoxMemento : IMemento
     {
         #region Constructor
 
-        public ConcreteMemento(IState state)
+        public TextBoxMemento(IState state)
         {
             State = state;
             Date = DateTime.Now;
@@ -16,13 +16,13 @@ namespace qa_eval_finale_memento.mementos
         #endregion
 
         #region Properties
-        public string Name
+        private string Name
         {
             get { return $"{Date} : {State}"; }
         }
 
-        public IState State { get; private set; }
-        public DateTime Date { get; private set; }
+        private IState State { get;  set; }
+        private DateTime Date { get;  set; }
 
         #endregion
 

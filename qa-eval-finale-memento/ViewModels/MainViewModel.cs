@@ -108,12 +108,12 @@ namespace qa_eval_finale_memento.ViewModels
         {
             IState state = new TextBoxState(Text.TrimEnd(), CaretPosition);
 
-            return new ConcreteMemento(state);
+            return new TextBoxMemento(state);
         }
 
         public void RestoreState(IMemento memento)
         {
-            if (memento is not ConcreteMemento)
+            if (memento is not TextBoxMemento)
             {
                 throw new Exception("Unknown memento class " + memento.ToString());
             }
