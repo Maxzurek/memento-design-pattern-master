@@ -49,8 +49,11 @@ namespace qa_eval_finale_memento.caretakers
                     undos.Push(memento);
                 }
             }
-            redos.Clear();
-            undos.Push(originator.SaveState());
+            redos.Clear(); // We only want to keep redos after executing an undo command
+            undos.Push(originator.SaveState()); // Save the current originator state
+
+            // Notify the originator that the undos and redos history have both changed
+            // The originator can then request a new history for both stacks
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(undos)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(redos)));
         }

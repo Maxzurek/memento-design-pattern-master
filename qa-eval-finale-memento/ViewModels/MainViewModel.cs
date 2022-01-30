@@ -180,35 +180,38 @@ namespace qa_eval_finale_memento.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// This is where we decide when we want to backup our textbox state.
+        /// </summary>
         private void HandleTextBoxTextChanged()
         {
-            if (StateRestored)
+            if (StateRestored) // We don't want to backup our state when we restore our state (when we undo or redo)
             {
                 StateRestored = !StateRestored;
             }
             else
             {
-                if (Text.Length == 0)
+                if (Text.Length == 0) // We have nothing to backup, leave
                 {
                     return;
                 }
                 else if (
-                    Text.Length > 1 && // We have at least 1 char
-                    CaretPosition == Text.Length - 1 && // 
-                    !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower())
-                    && Text[^1] != ' ')
-                // Whenever the user enters a non alphanumeric character a the end of the textbox,
-                // since this method is called before the CaretPosition is set,
-                // we want to move the textbox's CaretPosition to the end of the of the textbox before doing a backup of the state
+                    Text.Length > 1 &&                                          // We have at least 1 char
+                    CaretPosition == Text.Length - 1 &&                         // Our cursor position is trailing at the end of the text
+                    !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower()) // Last character is not alphanumeric
+                    && Text[^1] != ' ')                                         // Last character is not a space
                 {
+                    // Since this method is called before the CaretPosition is set,
+                    // we want to move the textbox's CaretPosition to the end of the of the textbox before backing up our state
                     CaretPosition++;
                     caretaker.Backup();
                 }
                 else if (Text.Length > 1) // We have at least 1 character
                 {
                     if (Text[^1] == ' ' && Text[^2] != ' ')
-                    // Whenever last character typed is a space and the character before is not a space, we have a "word".
-                        // Backup the current state
+                    // Whenever the last character typed is a space and the character before is not a space, we have a "word".
+                    // (***Note that the user could be typing inbetween words or characters, we also want to backup our state for each word typed)
+                    // Backup the current state
                     {
                         caretaker.Backup();
                     }
