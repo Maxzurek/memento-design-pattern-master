@@ -192,16 +192,16 @@ namespace qa_eval_finale_memento.ViewModels
                 {
                     return;
                 }
-                else if (CaretPosition == Text.Length - 1 && !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower()))
+                else if (Text.Length > 1 && 
+                    CaretPosition == Text.Length - 1 && 
+                    !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower())
+                    && Text[^1] != ' ')
                     // Whenever the user enters a non alphanumeric character a the end of the textbox,
                     // since this method is called before the CaretPosition is set,
                     // we want to move the textbox's CaretPosition to the end of the of the textbox before doing a backup of the state
                 {
-                    if(Text.Length > 1 && Text[^1] == ' ' && Text[^2] != ' ') // We don't want to backup spaces
-                    {
-                        CaretPosition++;
-                        caretaker.Backup();
-                    }
+                    CaretPosition++;
+                    caretaker.Backup();
                 }
                 else if (Text.Length > 1 && CaretPosition != Text.Length)
                 {
