@@ -16,13 +16,13 @@ namespace qa_eval_finale_memento.mementos
         #endregion
 
         #region Properties
-        private string Name
+        public string Name
         {
             get { return $"{Date} : {State}"; }
         }
 
-        private IState State { get;  set; }
-        private DateTime Date { get;  set; }
+        public IState State { get;  private set; }
+        public DateTime Date { get; private set; }
 
         #endregion
 
