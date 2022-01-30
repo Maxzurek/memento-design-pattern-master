@@ -192,8 +192,9 @@ namespace qa_eval_finale_memento.ViewModels
                 {
                     return;
                 }
-                else if (Text.Length > 1 &&
-                    CaretPosition == Text.Length - 1 &&
+                else if (
+                    Text.Length > 1 && // We have at least 1 char
+                    CaretPosition == Text.Length - 1 && // 
                     !ALPHANUMERIC_CHARS.Contains(Text[^1].ToString().ToLower())
                     && Text[^1] != ' ')
                 // Whenever the user enters a non alphanumeric character a the end of the textbox,
@@ -203,11 +204,11 @@ namespace qa_eval_finale_memento.ViewModels
                     CaretPosition++;
                     caretaker.Backup();
                 }
-                else if (Text.Length > 1 && CaretPosition != Text.Length)
+                else if (Text.Length > 1) // We have at least 1 character
                 {
                     if (Text[^1] == ' ' && Text[^2] != ' ')
-                    // Whenever last char type is a space and the char before is not a space, we have a word.
-                    // Backup the current state
+                    // Whenever last character typed is a space and the character before is not a space, we have a "word".
+                        // Backup the current state
                     {
                         caretaker.Backup();
                     }
